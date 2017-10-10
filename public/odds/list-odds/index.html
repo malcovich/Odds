@@ -1,0 +1,32 @@
+<!-- Table Striped Rows -->
+<div class="table-responsive g-py-20">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Type</th>
+        <th>Home team</th>
+        <th>Away team</th>
+        <th>Bet</th>
+        <th>Rate</th>
+        <th>Value</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="odd in $ctrl.odds">
+        <td>{{$index+1}}</td>
+        <td>{{odd.type}}</td>
+        <td>{{odd.home}}</td>
+        <td>{{odd.away}}</td>
+        <td>{{odd.bet}}</td>
+        <td>{{odd.rate}}</td>
+        <td>{{odd.value}}</td>
+        <td>{{$ctrl.calculateResultOdd(odd)}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- End Table Striped Rows -->
+                

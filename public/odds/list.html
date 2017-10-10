@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-9 ">
+        <div class="g-px-20 g-py-40">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="g-mb-15">
+                        <div class="align-self-center mr-3 left">
+                            <span class="u-icon-v2 g-color-red g-mr-15 g-mb-15"><i class="icon-wallet"></i></span>
+                        </div>
+                        <div class="align-self-center left">
+                            <h3 class="h5 g-color-black g-line-height-1_6 mb-0 g-mt-2"> {{$ctrl.totalProfit + 1000}}</h3>
+                            <span class="d-block g-color-gray-dark-v5">Текущий баланс</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="g-mb-15">
+                        <div class="align-self-center mr-3 left">
+                            <span class="u-icon-v2 g-color-orange g-mr-15 g-mb-15"><i class="fa fa-dollar"></i></span>
+                        </div>
+                        <div class="align-self-center left">
+                            <h3 class="h5 g-color-black g-line-height-1_6 mb-0 g-mt-2">{{$ctrl.totalProfit}}</h3>
+                            <span class="d-block g-color-gray-dark-v5">Текущий профит</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="g-mb-15">
+                        <div class="align-self-center mr-3 left">
+                            <span class="u-icon-v2 g-color-primary g-mr-15 g-mb-15"><i class=" icon-check"></i></span>
+                        </div>
+                        <div class="align-self-center left">
+                            <h3 class="h5 g-color-black g-line-height-1_6 mb-0 g-mt-2">{{$ctrl.winBets}}</h3>
+                            <span class="d-block g-color-gray-dark-v5">Выиграно ставок</span> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="g-mb-15">
+                        <div class="align-self-center mr-3 left">
+                            <span class="u-icon-v2 g-color-orange g-mr-15 g-mb-15"><i class="icon-book-open"></i></span>
+                        </div>
+                        <div class="align-self-center left">
+                            <h3 class="h5 g-color-black g-line-height-1_6 mb-0 g-mt-2">{{$ctrl.avarageRate}}</h3>
+                            <span class="d-block g-color-gray-dark-v5">Средний коефициент</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow:hidden">
+                <span class="btn btn-md u-btn-outline-blue g-mr-10 g-mb-15 right g-mt-20">Фильтры</span>
+                <h3 class="h4 g-font-weight-300 g-mt-20 left">Список ваших ставок</h3>
+            </div>
+             <list-odds odds=$ctrl.odds></list-odds>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <add-odd></add-odd>
+    </div>
+</div>

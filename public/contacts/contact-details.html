@@ -1,0 +1,133 @@
+<div ng-class="{'userCreated': $ctrl.isShowedRightBar()}">
+	<div class="contact-right-block" ng-show="$ctrl.isShowedRightBar()">
+		<qblock  ng-if="$ctrl.contact" contact ="$ctrl.contact" 
+				user="$ctrl.user"></qblock>
+	</div>
+	<div class="contact-left-block">
+		<div class=" u-shadow-v11 rounded g-pa-30">
+			<div class="contact-information ">
+				<div class="other-info row" >
+					<div class="contacts-raiting">
+						<p><b>{{$ctrl.raitingList.length}}</b> оцінка користувачів</p>
+						<input-stars
+				            max="5"
+				            icon-base="fa fa-fw"
+				            icon-empty="fa-star-o"
+				            icon-full="fa-star" 
+				            icon-hover-full="fa-star" 
+				            ng-attr-readonly= true 
+				            ng-model="$ctrl.raiting"
+				            >
+				        </input-stars>
+				        <p>
+				        	Ваша оцінка
+				        </p>
+				        	<input-stars
+				            max="5"
+				            icon-base="fa fa-fw"
+				            icon-empty="fa-star-o"
+				            icon-full="fa-star" 
+				            icon-hover-full="fa-star" 
+				            ng-attr-readonly= false
+				            ng-model="$ctrl.yourRaiting"
+				            >
+				        	</input-stars>
+					</div>
+					
+			</div>
+			<div class="col-md-9 g-mb-30 g-mb-0--md">
+				<div class="contact-photo ">
+					<img src="public/images/3.jpg">	
+				</div>
+				<div class="contact-text-info col-md-10 ">
+					<h1 class="d-block g-mb-15 u-link-v5 g-font-size-24 g-color-gray-dark-v1">{{$ctrl.contact.name}}</h1>
+					<h4 class="h5 g-font-weight-300 g-mb-15 g-color-primary">
+                      <i class="icon-badge g-pos-rel g-top-1 g-mr-5 g-color-gray-dark-v5"></i> {{$ctrl.contact.spec}}
+                    </h4>
+                    <h4 class="h6 g-font-weight-300 g-mb-10">
+                      <i class="icon-phone g-pos-rel g-top-1 g-mr-5 g-color-gray-dark-v5"></i> {{$ctrl.contact.phone}}
+                    </h4>
+					
+					<!-- <div class="buttons-block">
+						<span class="btn green-btn" ng-click="$ctrl.opentMessageModal()"> Написать сообщение</span>
+					</div> -->
+					<div class="row">
+						<div class="buttons-block col-md-10">
+							<span ng-if="$ctrl.friendsHasContact.length > 0">Общий контакт с: </span>
+							<span class="commonContactUserList" ng-if="$ctrl.friendsHasContact.length > 0" ng-repeat="f in $ctrl.friendsHasContact" ui-sref="main.friend({id: f._id})">
+								<img ng-src="{{f.smallImg}}" alt="">
+							</span>
+						</div>
+						<div class="buttons-block col-md-2">
+							<span class="btn btn-md u-btn-outline-bluegray g-mr-10 g-mb-15 " ng-click="$ctrl.deleteContact()">Удалить</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			
+			<div class="tab-block">
+				<uib-tabset active="active" >
+					<uib-tab index="0" heading="Детальна інформація">
+						<!-- 	<h4 class="sorry-text">К сожалению, данный контакт еще не зарегистривованный в нашем сервисе.<br> <span>Пригласите его</span>, что бы он смог заполнить этот раздел!</h4> -->
+						<p>
+							Nullam elementum tincidunt massa, a pulvinar leo ultricies ut. Ut fringilla lectus tellusimp imperdiet molestie est volutpat at, sed viverra cursus nibh. Ut fringilla lectus tellusimp imperdiet molestie. Nullam elementum tincidunt massa, a pulvinar leo ultricies ut. Elementum tincidunt massa, a pulvinar leo ultricies ut. Ut fringilla lectus tellusimp imperdiet molestie est volutpat at. Sed viverra cursus nibh.
+						</p>
+						<hr class="g-brd-gray-light-v4">
+						<div class="contact-info">
+							<h4 class="h5 g-color-gray-dark-v1 g-mb-10">Контактні дані</h4>
+							<p class="d-block g-color-gray-dark-v5 "><span class="g-width-200 d-inline-block">Адреса : </span><span class="g-color-gray-dark-v1">{{$ctrl.contact.address}}</span></p>
+							<p class="d-block g-color-gray-dark-v5"><span class="g-width-200  d-inline-block">Приймае в офісі: </span><span class="g-color-gray-dark-v1">{{$ctrl.isWorkedInOfice()}}</span></p>
+							<p class="d-block g-color-gray-dark-v5"><span class="g-width-200 d-inline-block">Виїзджажє до клієнта: </span><span class="g-color-gray-dark-v1">{{$ctrl.isWorkedInHome()}}</span></p>
+							<p class="d-block g-color-gray-dark-v5"><span class="g-width-200  d-inline-block">Рабочі дні : </span><span class="g-color-gray-dark-v1">{{$ctrl.contact.working_days}}</span></p>
+						</div>
+					</uib-tab>
+					<uib-tab index="1" heading="Відгуки користувачів">
+						<div>
+							<div class="comments-header">
+								<span class="showHideAddCommentBlock" ng-click="$ctrl.showHideAddCommentBlock = !$ctrl.showHideAddCommentBlock">Добавить отзыв</span>
+								<h4>{{ $ctrl.comments.length}} отзыва</h4>							
+							</div>	
+							<div class="comment-block" ng-show="$ctrl.showHideAddCommentBlock">
+								<textarea class="text-area" ng-model="$ctrl.comment.text"></textarea>
+								<span class="btn green-btn" ng-click="$ctrl.addComment()">Add</span>
+							</div>
+
+							<div class="comment-item" ng-repeat="comment in $ctrl.comments">
+								<div class="comment-user">
+									<div class="image-user">
+										<img src="public/images/user.jpg" alt="">
+									</div>
+									<div class="comment-info">
+										<a class="comment-user-name">{{comment.userId.name}}</a>
+										<span class="comment-date">{{comment.date | date}}</span>
+									</div>
+								</div>
+								<div class="comment-text">
+									<p>{{comment.text}}</p>
+								</div>
+							</div>
+						</div>
+					</uib-tab>
+					<uib-tab index="2" heading="Календар" disable="true">
+						<calendar ng-if="$ctrl.contact" 
+							contact ="$ctrl.contact" 
+							user="$ctrl.user"></calendar>
+					</uib-tab>
+				</uib-tabset>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-body" id="modal-body">
+    	<p>Сообщение:</p>
+      <textarea class="text-area" ng-model="vm.text"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</script>
+

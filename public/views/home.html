@@ -1,0 +1,35 @@
+<nav class="main-menu "  ng-controller="NavigationController">
+  <div class="header-user">
+    <div class="user-header-image">
+      <img ng-src="{{user.smallImg || '/public/images/vectorpaint1.png'}}" alt="">
+    </div>
+    <span uib-dropdown on-toggle="toggled(open)" class="user-block">
+      <a href id="simple-dropdown" uib-dropdown-toggle >
+       {{user.name || user.email}}
+      </a>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li>
+          <a ui-sref="main.profile">Профайл</a>
+          
+        </li>
+        <li><a ng-click="logUserOut()">Выйти</a></li>
+      </ul>
+    </span>
+  </div>
+  <form ng-submit="goToSearch()" class="header-search" >
+    <input type="text"  placeholder="Пошук" ng-model="query">
+    <button type="submit"></button>
+  </form>
+  <a href="#" class="logo"></a>
+</nav>
+<!-- main Block -->
+<div class="main-block">
+  <div class="columns">
+    <div class="left-menu navbar-nav ml-auto text-uppercase g-font-weight-600 u-sub-menu-v1">
+     
+    </div>
+    <div class="main-content g-px-20">
+      <div ui-view></div>
+    </div>
+  </div>
+</div>

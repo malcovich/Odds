@@ -1,0 +1,166 @@
+<div class="inner-block">
+	<div class="request-block">
+		<div class="request-header">
+            <div class="request-avtor-img">
+                <img ng-src="{{$ctrl.request.userId.smallImg}}" alt="">
+            </div>
+            <div class="request-autor-info">
+                <h4 class="req-user-name">{{$ctrl.request.userId.name}}</h4>
+                <span class="date-request"><i class="glyphicon glyphicon-calendar"></i>{{$ctrl.request.requestDate | date}}</span>
+                <div ng-show="$ctrl.user._id == ctrl.request.userId._id">
+                    <span ng-click="$ctrl.change(req)" class="btn edit">Редактировать</span>
+                    <span ng-click="$ctrl.deleteRequest(req._id)" class="btn delete">Удалить</span>
+                </div>
+                <div ng-if="$ctrl.user._id !== $ctrl.request.userId._id">
+                        <span ng-click="$ctrl.openModalfromNet()" class="btn green-btn">Выбрать из сети</span>
+                </div>
+                <div ng-show="$ctrl.user._id == $ctrl.request.userId._id" class="edit-block">
+                    <span ng-click="$ctrl.change($ctrl.request)">Редактировать</span>
+                    <span ng-click="$ctrl.deleteRequest($ctrl.request._id)">Удалить</span>
+                </div>
+            </div>
+
+		</div>
+		<div class="request-body">
+            <p class="request-text">"{{$ctrl.request.text}}"</p>
+		</div>
+  </div>
+    <div >
+      <h4  ng-show="$ctrl.request.userId._id == $ctrl.user._id">Вам рекомендуют:</h4>
+    <div class="my-answer" ng-show="$ctrl.request.userId._id == $ctrl.user._id">
+        <table class="list-contacts">
+            <thead>
+              <tr>
+                  <th class="type">Тип</th>
+                  <th class="name">Имя специалиста</th>
+                  <th class="category">Категория</th>
+                  <th class="spec">Специализация</th>
+                  <th class="raiting">Рейтинг</th>
+                  <th class="raiting">Кто рекомендует</th>
+                  
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in $ctrl.allContatctsFromAnsers" ng-hide="$ctrl.allAnswers.length == 0">
+                <td class="type"><span class="contact-icon-type orange"></span></td>
+                <td class="name" ui-sref="main.contact({id:item.contact._id})">
+                  <div class="contact-img"><img ng-src="{{item.contact.img || '/public/images/vectorpaint1.png'}}"></div>{{item.contact.name}}</td>
+                <td >{{item.contact.category[0].title}}</td>
+                <td>{{item.contact.spec}}</td>
+                <td><input-stars
+                    max="5"
+                    icon-base="fa fa-fw"
+                    icon-empty="fa-star-o"
+                    icon-full="fa-star" 
+                    icon-hover-full="fa-star" 
+                    ng-attr-readonly= true 
+                    ng-model="item.contact.raiting"
+                    ></input-stars></td>
+                    <td>{{item.user.name}}</td>
+              </tr>
+              <tr  ng-show="$ctrl.allAnswers.length == 0">
+                  <td class="no-answers" colspan="6">На данный момент вам еще не порекомендовали специалиста</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+    <div>
+        <h4  ng-hide="$ctrl.request.userId._id == $ctrl.user._id || $ctrl.selectedContacts == 0">Вы рекомендуете:</h4>
+        <div class="my-answer" ng-hide="$ctrl.request.userId._id == $ctrl.user._id">
+            <table class="list-contacts">
+                <thead>
+                  <tr>
+                      <th class="type">Тип</th>
+                      <th class="name">Имя</th>
+                      <th class="category">Категория</th>
+                      <th class="spec">Специализация</th>
+                      <th class="raiting">Рейтинг</th>
+                      <th width="35"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="(index, contact) in $ctrl.selectedContacts" >
+                    <td class="type"><span class="contact-icon-type orange"></span></td>
+                    <td class="name" ui-sref="main.contact({id:contact._id})">
+                      <div class="contact-img"><img ng-src="{{contacts.img || '/public/images/vectorpaint1.png'}}"></div>{{contact.name}}</td>
+                    <td >{{contact.category[0].title}}</td>
+                    <td>{{contact.spec}}</td>
+                    <td><input-stars
+                        max="5"
+                        icon-base="fa fa-fw"
+                        icon-empty="fa-star-o"
+                        icon-full="fa-star" 
+                        icon-hover-full="fa-star" 
+                        ng-attr-readonly= true 
+                        ng-model="contact.raiting"
+                        ></input-stars></td>
+                    <td><i class="glyphicon glyphicon-remove red" ng-click="$ctrl.deleteSelected(index)"></i></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+        
+<!-- modal -->
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="add-contact-to-request">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Специалисты вашей сети:</h3>
+            <input type="text" ng-model="searchQ" class="filterInput" placeholder="Фильтр по сети">
+        </div>
+        <div class="modal-body" id="modal-body">        
+        <div >
+                  
+                  <table class="list-contacts">
+                <thead>
+                  <tr>
+                      <th class="type">#</th>
+                      <th class="name">Имя</th>
+                      <th class="spec">Специализация</th>
+                      <th class="raiting">Рейтинг</th>
+                      
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="contact in vm.contacts | filter:searchQ "  >
+                    <td class="type"><input type="checkbox" ng-model="contact.selected"></td>
+                    <td class="name" ui-sref="main.contact({id:contact._id})">
+                      <div class="contact-img"><img ng-src="{{contacts.img || '/public/images/vectorpaint1.png'}}"></div>{{contact.name}}</td>
+                    <td>{{contact.spec}}</td>
+                    <td><input-stars
+                        max="5"
+                        icon-base="fa fa-fw"
+                        icon-empty="fa-star-o"
+                        icon-full="fa-star" 
+                        icon-hover-full="fa-star" 
+                        ng-attr-readonly= true 
+                        ng-model="contact.raiting"
+                        ></input-stars></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+       
+    </div>
+     <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="vm.ok()">Рекомендовать</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Отменить</button>
+        </div>
+   
+</script>
+
+<script type="text/ng-template" id="editRequest.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Отредактируйте ваш запрос</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <textarea class="text-area" ng-model="vm.request.text">{{vm.request.text}}</textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</script>

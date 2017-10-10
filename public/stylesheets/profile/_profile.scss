@@ -1,0 +1,92 @@
+.inner-profile {
+	background: #fff;
+	padding: 30px;
+	.user-img {
+		height: 200px;
+		width: 200px;
+        margin: 0 auto;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 8px solid #eff3f6;
+		img {
+			height: 100%;
+			margin-left: -7px;
+		}
+	}
+	.user-info-block{
+		margin-left: 20px;
+	}
+    .left-block {
+        text-align: center;
+    }
+}
+
+
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+    width: 0;
+    height: 0;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+
+/* Example stylistic flourishes */
+
+.fileContainer {
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #38B248;
+    color: #fff;
+    padding: 0;
+    line-height: 20px;
+   	width: 0;
+    height: 0;
+    position: absolute;
+    left: -2000px;
+}
+
+.fileContainer [type=file] {
+    cursor: pointer;
+}
+.cropBlock {
+	padding-top: 30px;
+	text-align: center; 
+}
+.canvasBlock{
+	margin-top: 20px; 
+}
+.user-info-block {
+    .row {
+        margin-bottom: 15px;
+    }
+}
+.change-image {
+    margin-top: 25px;
+}
+.checkboxLabel{
+    width: auto;
+    input {
+        height: auto;
+    }
+}

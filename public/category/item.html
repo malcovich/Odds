@@ -1,0 +1,87 @@
+<div class="sub-header category">
+  <span class="btn green-btn add-new" ng-click="$ctrl.addContact()">Додати</span>
+  <h4 class="small-title">{{$ctrl.category.category.title}}</h4>
+  <div class="counters-contacts">
+    <div class="counter all">Специалістів: <span>{{$ctrl.category.contacts.length}}</span></div>
+    <div class="counter verificated">Зареєстрованих спеціалістів: <span>0</span></div>
+    <div class="counter users">Додано користувачами спеціалістів: <span>{{$ctrl.category.contacts.length}}</span></div>
+  </div>
+</div>
+<div class="category-contacts-list">
+<div class="alert alert-info" ng-show="$ctrl.category.contacts.length == 0">В даній категорії ще немає спеціалістів </div>
+  <table class="list-contacts" ng-hide="$ctrl.category.contacts.length == 0">
+    <thead>
+      <tr>
+          <th class="type">Тип</th>
+          <th class="name">Ім'я</th>
+          <th class="category">Категорія</th>
+          <th class="spec">Спеціалізація</th>
+          <th class="raiting">Рейтинг</th>
+          <th class="hidden-type">Приватний</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="contact in $ctrl.category.contacts" >
+        <td class="type"><span class="contact-icon-type orange"></span></td>
+        <td class="name" ui-sref="main.contact({id:contact._id})">
+        <div class="contact-img"><img ng-src="{{contact.img || '/public/images/vectorpaint1.png'}}"></div>{{contact.name}}</td>
+        <td >{{$ctrl.category.category.title}}</td>
+        <td>{{contact.spec}}</td>
+        <td><input-stars
+            max="5"
+            icon-base="fa fa-fw"
+            icon-empty="fa-star-o"
+            icon-full="fa-star" 
+            icon-hover-full="fa-star" 
+            ng-attr-readonly= true 
+            ng-model="contact.raiting"
+            ></input-stars></td>
+        <td><switcher class="styled"
+                      ng-model="contact.booleanHidden"
+                      ng-change="$ctrl.changeHiddenStatus(contact)"
+                      true-label="Да"
+                      false-label="Нет">
+            </switcher>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+            
+</div>
+
+
+<!--modal-->
+<script type="text/ng-template" id="addContact.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Додайте нового спеціаліста</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div>
+          <label class="modal-label" for="contactsName">Ім'я</label>
+          <input ng-model="vm.contact.name" placeholder="Ім'я спеціаліста" id="contactsName">
+        </div>
+         <div>
+        <label class="modal-label" for="contactsPhone">Телефон</label>
+          <input ng-model="vm.contact.phone" placeholder="Телефон спеціаліста" id="contactsPhone">
+        </div> 
+          <div>
+        <label class="modal-label"  class="">Категорія</label>
+            <div class="select-style">
+            <select ng-options="category as category.title for category in vm.categories " ng-model="vm.selected"></select>
+            </div>
+        </div> 
+       <div >
+          <label class="modal-label" for="contactsName">Спеціалізація</label>
+          <input ng-model="vm.contact.spec" placeholder="Contact's Specification" id="contactsSpec">
+        </div>
+      <!--   <div class="checkbox">
+          <label class="radio-label">
+            <input ng-model="vm.contact.hidden" type="checkbox">Приватний контакт
+          </label>
+        </div>   -->
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">Додати</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Відмінити</button>
+    </div>
+</script>

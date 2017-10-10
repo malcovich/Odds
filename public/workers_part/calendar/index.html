@@ -1,0 +1,15 @@
+<div class="inner-block">
+	<h4>Calendar <span class="glyphicon glyphicon-cog" ng-click="$ctrl.showSettings = !$ctrl.showSettings"></span></h4>
+	<div class="calendar-settings form-inline" ng-show="$ctrl.showSettings">
+		<label class="checkbox-inline">
+		  <input type="checkbox" id="inlineCheckbox1" value="option1" ng-model="$ctrl.contact.fixedWorkingPeriod"> 
+		  Фиксированое расписание
+		</label>
+		<label class="checkbox-inline">
+			Период: 
+			<input type="number" class="form-control period" placeholder="Период" ng-model="$ctrl.contact.periodForClient">
+		</label>
+		<span class="btn green-btn" ng-click="$ctrl.save()">Сохранить</span>
+	</div>
+	<calendar ng-if="$ctrl.contact" contact="$ctrl.contact" user="$ctrl.user"></calendar>
+</div>

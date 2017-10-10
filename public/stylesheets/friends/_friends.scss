@@ -1,0 +1,147 @@
+
+.friend-header {
+	padding:30px;
+	overflow:hidden;
+	.friend-info {
+		overflow:hidden;
+	}
+	.friend-img {
+		width: 150px;
+		height: 150px;
+		overflow: hidden;
+		border-radius: 50%;
+		float: left;
+		margin-right: 20px;
+		img{
+			max-width: 100%;
+		}
+	}
+	.friend-name {
+		font-size: 25px;
+	}
+}
+.addBtn {
+	float: right;
+	margin-top: 17px;
+}
+.item_in_list{
+	float: right;
+	width: 89px;
+	text-align: center;
+	line-height: 70px;
+}
+.deleteBtn{
+	margin-top: 18px;
+}
+.blockRequestToFriend {
+	padding: 0 30px 20px 30px;
+	background-color: #EFF3F6;
+	margin-bottom: 20px;
+	overflow :hidden;
+	h3 {
+		padding-top: 18px;
+	    padding-bottom: 7px;
+	    color: #588386;
+	    font-size: 21px;
+	    font-weight: normal;
+	    text-transform: initial;
+	}
+	.itemRequest {
+		width: 48%;
+		padding: 12px;
+	    border-bottom: 1px solid #F1F2F4;
+	    overflow: hidden;
+	    background-color: #fff;
+	    overflow: hidden;
+	}
+	img {
+		width: 70px;
+    	float: left;
+	}
+	.name {
+		color: #4B5262;
+   		margin-bottom: 3px
+	}
+	.info {
+		float: left;
+		padding-left: 30px;
+	}
+	.acceptBtn{
+		float: right;
+		margin-top: 18px;
+	}
+}
+.sub-header {
+	height: 50px;
+	border-bottom: 1px solid #dfe2e5;
+	padding-left: 30px;
+	overflow: hidden;
+
+	.counts {
+		color: #BFC4D0;
+		line-height: 50px;
+		float: left;
+	}
+	.add-new {
+		float:right;
+		margin-top: 8px;
+	}
+}
+.friends-list {
+	border: 1px solid #F1F2F4;
+	border-radius: 4px;
+	padding: 0px;
+	margin: 0px;
+	list-style:none;
+	overflow :hidden;
+	li {
+		width: 31%;
+		float: left;
+		height: 90px;
+		margin-right: 3.5%;
+		margin-bottom: 20px;
+		background-color: #fff;
+		padding: 12px;
+		border-bottom: 1px solid #F1F2F4;
+		overflow: hidden;
+		img {
+			width: 70px;
+			float: left;
+		}
+		.info {
+			float: left;
+			padding-left: 30px;
+		}
+		.name {
+			color: #4B5262;
+			margin-bottom: 3px;
+		}
+		.phone {
+			color: #ACB3BD;
+			font-size: 12px;
+		}
+	}
+	li:nth-child(3n){
+		margin-right: 0;
+	}
+
+}
+
+.tile-list-items {
+	background-color: #fff;
+	padding: 10px 16px;
+	margin-bottom: 16px;
+	overflow: hidden;
+	display: block;
+	position: relative;
+}
+
+.image-block {
+	height: 70px;
+	width: auto;
+	margin-right: 16px;
+
+	img {
+		height: 100%;
+	}
+}
