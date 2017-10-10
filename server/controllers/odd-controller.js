@@ -4,7 +4,7 @@ var Odd = require('../datasets/odd');
 module.exports.addOdd = function(req, res){
 	var odd = new Odd(req.body);
 	odd.save();
-	res.json(req.odd)
+	res.json(odd)
 }
 
 module.exports.getList = function(req, res){

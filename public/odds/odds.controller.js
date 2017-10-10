@@ -2,9 +2,14 @@ angular.module('MyApp')
 .controller('OddsListController', ['$scope', '$state', 'user', 'OddFactory','$rootScope', function($scope, $state, user, OddFactory, $rootScope){
     var $ctrl = this;
     $ctrl.user = user.data;
-    $ctrl.totalProfit = 0;
-    $ctrl.winBets = 0;
-    $ctrl.avarageRate = 0;
+    
+    $ctrl.sports =  [
+        {
+            'title' : 'football',
+            'value' : 1
+        }
+    ]
+
     if (!$ctrl.user){
         $state.go('landing');
     }else {
@@ -34,6 +39,9 @@ angular.module('MyApp')
     }
 
     function getListOdds (){
+        $ctrl.totalProfit = 0;
+        $ctrl.winBets = 0;
+        $ctrl.avarageRate = 0;
         OddFactory.getList().then(function(res){
             $ctrl.odds = res.data;
             calculateTotalProfit();

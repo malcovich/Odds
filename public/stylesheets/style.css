@@ -1374,6 +1374,15 @@ input {
     border: 2px solid #eee;
     z-index: 10; }
 
+.btn-group button {
+  width: 100%;
+  color: #ccc;
+  border-color: #ccc;
+  background-color: transparent; }
+
+.btn-group.dropdown {
+  width: 100%; }
+
 body {
   font-family: 'Open Sans', sans-serif; }
 
