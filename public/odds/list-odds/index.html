@@ -1,5 +1,5 @@
 <!-- Table Striped Rows -->
-<div class="table-responsive g-py-20">
+<div class=" g-py-20">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -11,6 +11,7 @@
         <th>Rate</th>
         <th>Value</th>
         <th>Result</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -24,9 +25,67 @@
         <td>{{odd.rate}}</td>
         <td>{{odd.value}}</td>
         <td>{{$ctrl.calculateResultOdd(odd)}}</td>
+        <td>
+          <div class="btn-group dropdown open odd-action" uib-dropdown="" is-open="status.isopen">
+            <button id="single-button" type="button" class="btn u-btn-orange btn-sm dropdown-toggle" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="true">
+               Действия </span>
+            </button>
+            <ul class="dropdown-menu " uib-dropdown-menu="" role="menu" aria-labelledby="single-button">
+                <li role="menuitem" class="actions-item" ng-click="$ctrl.deleteOdd(odd)">Удалить</li>
+                <li role="menuitem" class="actions-item" ng-click="$ctrl.openEditModal(odd)">Редактировать </li>
+                <li role="menuitem" class="actions-item" ng-click="$ctrl.setActive(sport)">Коментарий </li>
+            </ul>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
 <!-- End Table Striped Rows -->
+
+<!--modal-->
+<script type="text/ng-template" id="editOdd.html">
+  <div class="modal-header">
+      <h3 class="modal-title" id="modal-title">Редактирование ставки</h3>
+  </div>
+  <div class="modal-body edit-odd-modal" id="modal-body">
+      <div class="row">
+        <div class="col-lg-6">
+            <label class="modal-label" for="homeT">Команда хозяев</label>
+            <input ng-model="vm.odd.home" placeholder="" id="homeT">
+        </div>
+        <div class="col-lg-6">
+            <label class="modal-label" for="awayT">Команда гостей</label>
+            <input ng-model="vm.odd.away" placeholder="" id="awayT">
+        </div>
+        <div class="col-lg-6">
+            <label class="modal-label" for="type">Вид спорта</label>
+            <div class="select-style">
+                <select ng-options="sport.title as sport.title for sport in vm.sports " ng-model="vm.odd.type"></select>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label class="modal-label" for="bet">Тип ставки</label>
+            <input ng-model="vm.odd.bet" placeholder="" id="bet">
+        </div>
+        <div class="col-lg-6">
+            <label class="modal-label" for="rate">Кофициент</label>
+            <input ng-model="vm.odd.rate" placeholder="" id="rate">
+        </div>
+        <div class="col-lg-6">
+            <label class="modal-label" for="value">Сума ставки</label>
+            <input ng-model="vm.odd.value" placeholder="" id="value">
+        </div>
+        <div class="col-lg-6">
+            <label class="modal-label" for="result">Результат</label>
+            <input ng-model="vm.odd.result" placeholder="" id="result">
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-md u-btn-primary" type="button" ng-click="vm.ok()">Додати</button>
+      <button class="btn  btn-md u-btn-outline-orange" type="button" ng-click="vm.cancel()">Відмінити</button>
+  </div>
+</script>
+
                 

@@ -34,6 +34,30 @@
 					controllerAs: '$ctrl'
 				})
 
+				.state('main.matches', {
+					url: "/matches",
+					templateUrl: "/public/matches/list.html",
+					resolve: {
+						checkAuth : function(user){
+							return user.data.data
+						}
+					},
+					controller: "MatchesListController",
+					controllerAs: '$ctrl'
+				})
+
+				.state('main.match', {
+					url: "/matches/:id",
+					templateUrl: "/public/matches/match-details.html",
+					resolve: {
+						checkAuth : function(user){
+							return user.data.data
+						}
+					},
+					controller: "MatchDetailsController",
+					controllerAs: '$ctrl'
+				})
+
 				.state('main.profile', {
 					url: "/profile",
 					templateUrl: "/public/profile/profile.html",

@@ -42,7 +42,7 @@ angular.module('MyApp')
         $ctrl.totalProfit = 0;
         $ctrl.winBets = 0;
         $ctrl.avarageRate = 0;
-        OddFactory.getList().then(function(res){
+        OddFactory.getList({'id': $ctrl.user._id}).then(function(res){
             $ctrl.odds = res.data;
             calculateTotalProfit();
             calculateWinBets();

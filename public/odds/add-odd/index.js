@@ -1,7 +1,7 @@
 angular.module('MyApp').component('addOdd', {
     templateUrl: '/public/odds/add-odd/index.html',
     bindings: {
-      odds: '=',
+      user: '=',
       sports: '=' 
     },
     controller: function($rootScope, OddFactory){
@@ -22,6 +22,7 @@ angular.module('MyApp').component('addOdd', {
 
         $ctrl.setActive = function(type) {
             $ctrl.odd.type = type.value;
+            $ctrl.odd.userId  = $ctrl.user._id;
             $ctrl.activeOption = type.title;
         }
     }

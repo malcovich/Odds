@@ -9,6 +9,14 @@ angular.module('MyApp').factory('OddFactory', function($http) {
 	service.getList = function(obj){
 		return $http.post('/api/odds/getList', obj);
 	}
+
+	service.deleteOdd = function (obj) {
+		return $http.post('/api/odds/deleteOdd', obj);
+	}
+
+	service.updateOdd = function(obj){
+		return $http.post('/api/odds/updateOdd', obj);
+	}
 	
 	return service;
 }) 

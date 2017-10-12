@@ -8,7 +8,20 @@ module.exports.addOdd = function(req, res){
 }
 
 module.exports.getList = function(req, res){
-    Odd.find({}).exec(function (err, result) { 
+    Odd.find({$and : [{'userId' : req.body.id}, {deleted: 'false'}]}).exec(function (err, result) { 
+        res.json(result);
+    });
+}
+
+module.exports.deleteOdd = function(req, res){
+    Odd.findByIdAndUpdate(req.body.id,{"$set": {"deleted": true }}).exec(function (err, result) { 
+        res.json(result);
+    });
+}
+
+module.exports.updateOdd = function(req, res){
+    Odd.findByIdAndUpdate(req.body._id,req.body, {upsert:true}).exec(function (err, result) { 
+        console.log(result)
         res.json(result);
     });
 }

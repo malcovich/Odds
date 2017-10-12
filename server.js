@@ -16,6 +16,7 @@ var searchController = require('./server/controllers/search-controller');
 var categoriesController = require('./server/controllers/categories-controller');
 var eventController = require('./server/controllers/event-controller');
 var oddController = require('./server/controllers/odd-controller');
+var fixtureController = require('./server/controllers/fixture.controller');
 
 /*app.use(function(req, res, next) { //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
@@ -107,7 +108,15 @@ app.post('/api/requests/getAllAnswers', requestController.getAllAnswers);
 // odd
 app.post('/api/odds/add', oddController.addOdd);
 app.post('/api/odds/getList', oddController.getList);
+app.post('/api/odds/deleteOdd', oddController.deleteOdd);
+app.post('/api/odds/updateOdd', oddController.updateOdd);
+
 app.post('/api/requests/getAllAnswersNew', requestController.getAllAnswersNew);
+
+app.post('/api/fixture/add', fixtureController.add);
+app.post('/api/fixture/getList', fixtureController.getList);
+app.post('/api/fixture/getItem', fixtureController.getItem);
+app.post('/api/fixture/getListPrevMatch', fixtureController.getListPrevMatch);
 
 app.set('port', (process.env.PORT || 2600));
      

@@ -1275,6 +1275,12 @@ input {
 .add-contact-to-request input[type="checkbox"] {
   float: left; }
 
+.edit-odd-modal.modal-body input {
+  width: 100%; }
+
+.edit-odd-modal.modal-body .select-style {
+  width: auto; }
+
 .calendar-table {
   background: #fff; }
   .calendar-table .header-table {
@@ -1374,14 +1380,22 @@ input {
     border: 2px solid #eee;
     z-index: 10; }
 
-.btn-group button {
-  width: 100%;
-  color: #ccc;
-  border-color: #ccc;
-  background-color: transparent; }
-
 .btn-group.dropdown {
   width: 100%; }
+
+.odd-action button {
+  width: 150px; }
+
+.odd-action .dropdown-menu {
+  min-width: 150px; }
+  .odd-action .dropdown-menu .actions-item {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    cursor: pointer; }
+
+.odd-action.dropdown {
+  width: 100px; }
 
 body {
   font-family: 'Open Sans', sans-serif; }

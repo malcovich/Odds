@@ -7,5 +7,6 @@ module.exports = mongoose.model('Odd', {
     bet: String,
     rate: Number, 
     value: Number,
-    result: Number
+    result: Number,
+    deleted: Boolean
 }); 
