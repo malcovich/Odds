@@ -35,7 +35,9 @@ angular.module('MyApp')
                 $ctrl.totalOv1.push(checkTotalOv1(m));
             });
 
-            $ctrl.matchStatus = calculateDeltaPoint($ctrl.homeTeamResults, $ctrl.awayTeamResults)
+            $ctrl.matchStatus = calculateDeltaPoint($ctrl.homeTeamResults, $ctrl.awayTeamResults);
+
+            getInfoPreviusMatch();
 
         });
     })
@@ -100,7 +102,21 @@ angular.module('MyApp')
                 'status': "Интересен, вероятна победа гостевой команды"
             }
         }
+    }
 
+    function getInfoPreviusMatch () {
+        var arrTeams = ['Tottenham Hotspur FC','Manchester United FC','Manchester City FC', 'Arsenal FC','Liverpool FC','Chelsea FC'];
 
+        if (arrTeams.indexOf($ctrl.match.homeTeamName) > -1) {
+            var previusMatch = $ctrl.homeMatches.filter(function(match){
+                if (match.matchday == $ctrl.match.matchday - 1) {
+                    return match;
+                }
+            })[0];
+            console.log(previusMatch,previusMatch.result.goalsHomeTeam > previusMatch.result.goalsAwayTeam)
+            if ((previusMatch.awayTeamName == $ctrl.match.homeTeamName) && (previusMatch.result.goalsHomeTeam > previusMatch.result.goalsAwayTeam)){
+                $ctrl.status2 = "Возможна победа домашней команды"
+            }
+        }
     }
 }]);
