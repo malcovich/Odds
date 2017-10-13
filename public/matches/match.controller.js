@@ -6,6 +6,7 @@ angular.module('MyApp')
     $ctrl.homeTeamResults = [];
     $ctrl.awayTeamResults = [];
     $ctrl.totalOv1 = [];
+    $ctrl.totalOv2 = [];
 
     $ctrl.deltaPoint = 0;
 
@@ -14,30 +15,53 @@ angular.module('MyApp')
   
         $http.post('/api/fixture/getListPrevMatch', {'matchday' :$ctrl.match.matchday, 'names': [$ctrl.match.homeTeamName, $ctrl.match.awayTeamName]}).then(function(res){
             $ctrl.list = res.data;
-
             $ctrl.homeMatches = $ctrl.list.filter(function(match){
-                return match.homeTeamName == $ctrl.match.homeTeamName ||  match.awayTeamName == $ctrl.match.homeTeamName;
+                return match.homeTeamName == $ctrl.match.homeTeamName 
+                // return match.homeTeamName == $ctrl.match.homeTeamName ||  match.awayTeamName == $ctrl.match.homeTeamName;
             });
             $ctrl.homeMatches = $filter('orderBy')($ctrl.homeMatches, 'date');
-
+            if ( $ctrl.homeMatches.length > 5) {
+                $ctrl.homeMatches.shift();
+            }
+            if ( $ctrl.homeMatches.length > 5) {
+                $ctrl.homeMatches.shift();
+            }
+            if ( $ctrl.homeMatches.length > 5) {
+                $ctrl.homeMatches.shift();
+            }
+            console.log($ctrl.homeMatches, $ctrl.list)
             $ctrl.awayMatches = $ctrl.list.filter(function(match){
-                return match.homeTeamName == $ctrl.match.awayTeamName ||  match.awayTeamName == $ctrl.match.awayTeamName;
+                return  match.awayTeamName == $ctrl.match.awayTeamName;
+                // return match.homeTeamName == $ctrl.match.awayTeamName ||  match.awayTeamName == $ctrl.match.awayTeamName;
             });
+            
             $ctrl.awayMatches = $filter('orderBy')($ctrl.awayMatches, 'date');
-
+            if ( $ctrl.awayMatches.length > 5) {
+               $ctrl.awayMatches.shift();
+            }
+            if ( $ctrl.awayMatches.length > 5) {
+                $ctrl.awayMatches.shift();
+             }
+             if ( $ctrl.awayMatches.length > 5) {
+                $ctrl.awayMatches.shift();
+             }
             $ctrl.homeMatches.forEach(function(m){
                 $ctrl.homeTeamResults.push(checkMatch(m, $ctrl.match.homeTeamName));
                 $ctrl.totalOv1.push(checkTotalOv1(m));
+                $ctrl.totalOv2.push(checkTotalOv2(m));
             });
 
             $ctrl.awayMatches.forEach(function(m){
                 $ctrl.awayTeamResults.push(checkMatch(m, $ctrl.match.awayTeamName));
                 $ctrl.totalOv1.push(checkTotalOv1(m));
+                $ctrl.totalOv2.push(checkTotalOv2(m));
             });
 
             $ctrl.matchStatus = calculateDeltaPoint($ctrl.homeTeamResults, $ctrl.awayTeamResults);
 
-            getInfoPreviusMatch();
+            // getInfoPreviusMatch();
+            checkOver2()
+            // calculateAvarage()
 
         });
     })
@@ -70,6 +94,14 @@ angular.module('MyApp')
         }
     }
 
+    function checkTotalOv2 (m){
+        if (m.result.goalsHomeTeam + m.result.goalsAwayTeam > 2){
+            return { "text":"+", 'color' : ' u-label-success '}
+        }else {
+            return { "text":"-", 'color' : ' u-label-danger '}
+        }
+    }
+
     function calculateDeltaPoint(h, a){
         var hP = 0;
         var aP = 0;
@@ -90,13 +122,13 @@ angular.module('MyApp')
             }
         });
 
-        if ((hP-aP >= 5) && (hP >= 10) ){
+        if ((hP-aP >= 7) && (hP >= 11) ){
             return {
                 delta : hP-aP,
                 'status': "Интересен, вероятна победа домашней команды"
             }
         }
-        if ((aP -hP >= 5) && (aP >= 10) ){
+        if ((aP -hP >= 7) && (aP >= 11) ){
             return {
                 delta : aP-hP,
                 'status': "Интересен, вероятна победа гостевой команды"
@@ -117,6 +149,47 @@ angular.module('MyApp')
             if ((previusMatch.awayTeamName == $ctrl.match.homeTeamName) && (previusMatch.result.goalsHomeTeam > previusMatch.result.goalsAwayTeam)){
                 $ctrl.status2 = "Возможна победа домашней команды"
             }
+        }
+    }
+    
+
+    function checkOver2 () {
+        if (($ctrl.totalOv2[0].text == "+")&& ($ctrl.totalOv2[1].text == "+") && ($ctrl.totalOv2[2].text == "+")
+        && ($ctrl.totalOv2[3].text == "+")&& ($ctrl.totalOv2[5].text == "+")
+        && ($ctrl.totalOv2[6].text == "+")&& ($ctrl.totalOv2[7].text == "+") && ($ctrl.totalOv2[8].text == "+") ){
+            if (($ctrl.totalOv2[4].text == "-") || ($ctrl.totalOv2[9].text == "-")){
+                $ctrl.aletOver = "Over 2.5";
+            }
+        }
+    }
+
+    function calculateAvarage(){
+        var homeGS = 0;
+        var homeGL = 0;
+        var awayGS = 0;
+        var awayGL = 0;
+        $ctrl.homeMatches.forEach(function(i){
+            homeGS += i.result.goalsHomeTeam;
+            homeGL += i.result.goalsAwayTeam;
+        })
+        $ctrl.awayMatches.forEach(function(i){
+            awayGS += i.result.goalsAwayTeam;
+            awayGS += i.result.goalsHomeTeam;
+        })
+        homeGS = (homeGS / $ctrl.homeMatches.length).toFixed(2);
+        homeGL = (homeGL / $ctrl.homeMatches.length).toFixed(2);
+        awayGS = (awayGS / $ctrl.awayMatches.length).toFixed(2);
+        awayGL = (awayGL / $ctrl.awayMatches.length).toFixed(2);
+        $ctrl.matchT  =  0
+        if (homeGS >= awayGL) {
+            $ctrl.matchT += +homeGS;
+        }else {
+            $ctrl.matchT += +awayGL;
+        }
+        if (homeGL >= awayGS) {
+            $ctrl.matchT += +awayGS;
+        }else {
+            $ctrl.matchT += +homeGL;
         }
     }
 }]);

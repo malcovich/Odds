@@ -1,13 +1,21 @@
 <h2>{{$ctrl.match.homeTeamName}} {{$ctrl.match.result.goalsHomeTeam}} -  {{$ctrl.match.result.goalsAwayTeam}} {{$ctrl.match.awayTeamName}}</h2>
 <div class="row">
+    <!-- <b>{{$ctrl.matchT}}</b> -->
     <p class="text-success">{{$ctrl.matchStatus.status}}</p>
     <p>{{$ctrl.status2}}</p>
+    <p>{{$ctrl.aletOver}}</p>
     <div class="col-lg-12 g-mb-25">
         <div>
             <span><b>Total over 1.5 : </b></span>
             <span class="u-label g-mr-5" ng-class="t.color" ng-repeat="t in $ctrl.totalOv1">{{t.text}}</span>
         </div>
     </div>
+    <div class="col-lg-12 g-mb-25">
+            <div>
+                <span><b>Total over 2.5 : </b></span>
+                <span class="u-label g-mr-5" ng-class="t.color" ng-repeat="t in $ctrl.totalOv2">{{t.text}}</span>
+            </div>
+        </div>
     <div class="col-lg-6">
         <div>
             <span class="u-label g-mr-5" ng-class="m.color" ng-repeat="m in $ctrl.homeTeamResults">{{m.r}}</span>
